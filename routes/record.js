@@ -11,13 +11,21 @@ router.get('/', async (req, res) => {
 
 router.post('/filterRecords', validator ,async (req, res) => {
   const { startDate, endDate, minCount, maxCount } = req.body;
-  const records = await queries.getRecordWithFilter(startDate, endDate, minCount, maxCount);
+  const { records, error } = await queries.getRecordWithFilter(startDate, endDate, minCount, maxCount);
   
+  if (error) {
+    return res.status(httpStatusCodes.INTERNAL_SERVER).send({
+      code: -4,
+      message: `DB Error => ${error}`,
+      records
+    })
+  }
+
   res.status(httpStatusCodes.OK).send({
     code: 0,
     message: "Success",
     records
   })
-})
+});
 
 module.exports = router;
