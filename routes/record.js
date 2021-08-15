@@ -16,8 +16,7 @@ router.post('/filterRecords', validator ,async (req, res) => {
   res.status(httpStatusCodes.OK).send({
     code: 0,
     message: "Success",
-    records,
-    count: records.length
+    records
   })
 })
 
