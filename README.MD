@@ -20,3 +20,11 @@ Also to run test under __test__ folder. Run below code.
 ```
 npm run test
 ```
+
+# Folder Structure
+To create sustainable and understandable structure, I tried to collapse all related files under a folder also I have followed global rules for people who will try to understand codes.
+- Endpoints are located under routes/ folder inside of their related js file.
+- Db related files such as connection and queries are located under db/ file
+- All process handler such as error-handler, validation etc... is located under handler folder.
+- Mongodb models/schemas are located under models/ folder
+- All other configuration related files are located under main project folder 

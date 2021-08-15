@@ -11,7 +11,8 @@ router.get('/', async (req, res) => {
 
 router.post('/filterRecords', validator ,async (req, res) => {
   const { startDate, endDate, minCount, maxCount } = req.body;
-  const records = await queries.getRecordWithFilter(startDate, endDate, minCount, maxCount)
+  const records = await queries.getRecordWithFilter(startDate, endDate, minCount, maxCount);
+  
   res.status(200).send({
     code: 0,
     message: "Success",

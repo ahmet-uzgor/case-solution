@@ -18,9 +18,9 @@ const getRecordWithFilter = async (startDate, endDate, minCount, maxCount) => {
         { 
           $match: {
             totalCount: { $gte: parseInt(minCount), $lte: parseInt(maxCount) },
-            createdAt: {
-              $gte: moment(startDate, 'YYYY-MM-DD').add(1, 'day').toDate(),
-              $lte: moment(endDate, 'YYYY-MM-DD').add(1, 'day').toDate()
+            createdAt: { // it filters created_At date between start and endDate in suitable date type 
+              $gte: new Date(startDate), 
+              $lte: new Date(endDate)
             }
           }
         },
