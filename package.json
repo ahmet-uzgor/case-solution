@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "start:dev": "nodemon ./bin/www"
+    "start:dev": "nodemon ./bin/www",
+    "test": "TOPOLOGY=false jest  --watchAll --config=./jest.config.js --coverage --runInBand --forceExit --detectOpenHandles"
   },
   "repository": {
     "type": "git",
@@ -28,6 +29,8 @@
     "morgan": "~1.9.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.12"
+    "jest": "^27.0.6",
+    "nodemon": "^2.0.12",
+    "supertest": "^6.1.5"
   }
 }

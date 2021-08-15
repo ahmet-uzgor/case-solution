@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
-module.exports = () => {
-    mongoose.connect(process.env.MONGODB_URI, {
+module.exports = async () => {
+    await mongoose.connect(process.env.MONGODB_URI, {
         useNewUrlParser: true,
         useCreateIndex: true,
-        useUnifiedTopology: true
+        useUnifiedTopology: process.env.TOPOLOGY == 'false' ? false : true // when test ran, it throws error if it is true
     });
 
     mongoose.connection.on('open', () => {
