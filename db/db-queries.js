@@ -1,7 +1,7 @@
 const Record = require('../models/record');
 
-const getAllRecord = async () => {
-    return await Record.find({});
+const getAllRecord = async () => { // to see all data
+  return await Record.find({});
 };
 
 const getRecordWithFilter = async (startDate, endDate, minCount, maxCount) => {
