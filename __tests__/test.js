@@ -53,6 +53,21 @@ describe('/filterRecords test cases', () => {
       });
   });
 
+  it('tests with invalid startDate, return startDate format is invalid', (done) => {
+    requestData.startDate = "asd";
+    request
+      .post('/filterRecords')
+      .send(requestData)
+      .set('Accept', 'application/json')
+      .expect(httpStatusCodes.BAD_REQUEST)
+      .end((err, res) => {
+        if(err) return done(err);
+        expect(res.body.code).toBe(-3)
+        expect(res.body.msg).toBe('"startDate" must be in YYYY-MM-DD format');
+        return done();
+      });
+  });
+
   it('tests without endDate, return endDate is required', (done) => {
     delete requestData.endDate;
     request
@@ -64,6 +79,21 @@ describe('/filterRecords test cases', () => {
         if(err) return done(err);
         expect(res.body.code).toBe(-2)
         expect(res.body.msg).toBe('"endDate" is required');
+        return done();
+      });
+  });
+
+  it('tests with invalid endDate, return endDate format is invalid', (done) => {
+    requestData.endDate = "asd";
+    request
+      .post('/filterRecords')
+      .send(requestData)
+      .set('Accept', 'application/json')
+      .expect(httpStatusCodes.BAD_REQUEST)
+      .end((err, res) => {
+        if(err) return done(err);
+        expect(res.body.code).toBe(-3)
+        expect(res.body.msg).toBe('"endDate" must be in YYYY-MM-DD format');
         return done();
       });
   });
@@ -83,6 +113,21 @@ describe('/filterRecords test cases', () => {
       });
   });
 
+  it('tests with invalid maxCount, return maxCount format is invalid', (done) => {
+    requestData.maxCount = "asd";
+    request
+      .post('/filterRecords')
+      .send(requestData)
+      .set('Accept', 'application/json')
+      .expect(httpStatusCodes.BAD_REQUEST)
+      .end((err, res) => {
+        if(err) return done(err);
+        expect(res.body.code).toBe(-3)
+        expect(res.body.msg).toBe('"maxCount" must be a number');
+        return done();
+      });
+  });
+
   it('tests without minCount, return minCount is required', (done) => {
     delete requestData.minCount;
     request
@@ -94,6 +139,21 @@ describe('/filterRecords test cases', () => {
         if(err) return done(err);
         expect(res.body.code).toBe(-2)
         expect(res.body.msg).toBe('"minCount" is required');
+        return done();
+      });
+  });
+
+  it('tests with invalid minCount, return minCount format is invalid', (done) => {
+    requestData.minCount = "asd";
+    request
+      .post('/filterRecords')
+      .send(requestData)
+      .set('Accept', 'application/json')
+      .expect(httpStatusCodes.BAD_REQUEST)
+      .end((err, res) => {
+        if(err) return done(err);
+        expect(res.body.code).toBe(-3)
+        expect(res.body.msg).toBe('"minCount" must be a number');
         return done();
       });
   });
