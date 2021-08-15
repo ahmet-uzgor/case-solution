@@ -19,11 +19,11 @@ module.exports = (req, res, next) => {
         switch (err.type) {
             case 'any.empty':
             case 'any.required':
-                code = 2
+                code = -2
                 break;
             case 'number.base':
             case 'date.format':
-                code = 3
+                code = -3
                 break;
         }
         console.log(err.message + " code: " + err.type);
