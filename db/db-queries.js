@@ -28,4 +28,4 @@ const getRecordWithFilter = async (startDate, endDate, minCount, maxCount) => {
   }
 };
 
-module.exports = { getAllRecord, getRecordWithFilter }
+module.exports = { getRecordWithFilter }

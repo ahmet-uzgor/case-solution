@@ -1,5 +1,6 @@
 const supertest = require('supertest');
 const application = require('../app');
+const { getRecordWithFilter } = require('../db/db-queries');
 const httpStatusCodes = require('../handlers/http-status-codes');
 const request = supertest(application);
 
@@ -176,4 +177,20 @@ describe('/filterRecords test cases', () => {
       });
   });
 });
+
+// DB_QUERIES FUNCTION TESTS
+describe('query functions test cases', () => {
+  // sample request body
+  let startDate = new Date('2016-01-26');
+  let endDate = new Date('2018-02-02');
+  let minCount = 2700;
+  let maxCount = 3000;
+
+  it('getRecordWithFilter function with suitable given parameters', (done) => {
+    // all parameters of getRecordWithFilter is checked by validation rules , so no necessary to add a testcase
+    const { records, error } = getRecordWithFilter(startDate, endDate, minCount, maxCount);
+    expect(error).toBeUndefined()
+    return done()
+  })
+})
 
