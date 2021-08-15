@@ -3,6 +3,7 @@ const JoiImport = require('joi');
 const Joi = JoiImport.extend(DateExtension);
 const httpStatusCodes = require('../handlers/http-status-codes');
 
+// All request body validation rules are written below with Joi.
 const validationRules = Joi.object({
     startDate: Joi.date().format('YYYY-MM-DD').utc().required(),
     endDate: Joi.date().format('YYYY-MM-DD').utc().required(),
@@ -13,15 +14,15 @@ const validationRules = Joi.object({
 module.exports = (req, res, next) => {
     const { error, value } = validationRules.validate(req.body, { convert: true }); // it converts date to utc to use in db queries
     
-    if (error) {
+    if (error) { // Negative codes are indicates error, messages comes from Joi automatically
         const err = error.details[0];
         let code = -1;
         switch (err.type) {
-            case 'any.empty':
+            case 'any.empty': // İf a body parameter is empty or missing , Code is -2
             case 'any.required':
                 code = -2
                 break;
-            case 'number.base':
+            case 'number.base': // İf a body parameter is entered in wrong format Code is -3
             case 'date.format':
                 code = -3
                 break;
