@@ -1,3 +1,4 @@
+const moment = require('moment');
 const Record = require('../models/record');
 
 const getAllRecord = async () => {
