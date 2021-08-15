@@ -10,8 +10,10 @@ const { NotFoundError, InternalServerError } = require('./handlers/error-handler
 const dotenv = require('dotenv');
 dotenv.config();
 
+//Routes Import
 const recordRouter = require('./routes/record');
 
+// Initialize app
 const app = express();
 
 // mongodb connection initialization
@@ -25,15 +27,13 @@ const limiter = rateLimit({
 });
 app.use(limiter);
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+// Router paths
 app.use('/', recordRouter);
 
 // catch 404 and forward to error handler
