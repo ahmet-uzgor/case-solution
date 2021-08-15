@@ -38,7 +38,7 @@ describe('/filterRecords test cases', () => {
       jest.useRealTimers();
   });
   
-  it('tests without startDate, return startDate is required', function(done) {
+  it('tests without startDate, return startDate is required', (done) => {
     delete requestData.startDate;
     request
       .post('/filterRecords')
@@ -53,7 +53,7 @@ describe('/filterRecords test cases', () => {
       });
   });
 
-  it('tests without endDate, return endDate is required', function(done) {
+  it('tests without endDate, return endDate is required', (done) => {
     delete requestData.endDate;
     request
       .post('/filterRecords')
@@ -68,7 +68,7 @@ describe('/filterRecords test cases', () => {
       });
   });
 
-  it('tests without maxCount, return maxCount is required', function(done) {
+  it('tests without maxCount, return maxCount is required', (done) => {
     delete requestData.maxCount;
     request
       .post('/filterRecords')
@@ -80,6 +80,39 @@ describe('/filterRecords test cases', () => {
         expect(res.body.code).toBe(-2)
         expect(res.body.msg).toBe('"maxCount" is required');
         return done();
+      });
+  });
+
+  it('tests without minCount, return minCount is required', (done) => {
+    delete requestData.minCount;
+    request
+      .post('/filterRecords')
+      .send(requestData)
+      .set('Accept', 'application/json')
+      .expect(httpStatusCodes.BAD_REQUEST)
+      .end((err, res) => {
+        if(err) return done(err);
+        expect(res.body.code).toBe(-2)
+        expect(res.body.msg).toBe('"minCount" is required');
+        return done();
+      });
+  });
+
+  it('successful result for record list', () => {
+    request
+      .post('/filterRecords')
+      .send(requestData)
+      .set('Accept', 'application/json')
+      .expect(httpStatusCodes.OK)
+      .end((err, res) => {
+        expect(res.body.code).toBe(0);
+        expect(res.body.msg).toBe('Success')
+        expect(Array.isArray(res.body.records)).toBe(true);
+        expect(Object.keys(res.body.records[0])).toContain('key');
+        expect(Object.keys(res.body.records[0])).toContain('createdAt');
+        expect(Object.keys(res.body.records[0])).toContain('totalCount');
+        expect(res.body.records[0].totalCount).toBeLessThanOrEqual(3000);
+        expect(res.body.records[0].totalCount).toBeGreaterThanOrEqual(2700);
       });
   });
 });

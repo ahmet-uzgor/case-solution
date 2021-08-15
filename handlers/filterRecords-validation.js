@@ -9,7 +9,7 @@ const validationRules = (minCount) => {
         startDate: Joi.date().format('YYYY-MM-DD').utc().required(),
         endDate: Joi.date().format('YYYY-MM-DD').utc().required(), // should be a date with YYYY-MM-DD format in utc time
         minCount: Joi.number().integer().min(0).required(), // should be positive integer
-        maxCount: Joi.number().integer().min(parseInt(minCount)).required() // should be integer and min as minCount parameter
+        maxCount: Joi.number().integer().min(parseInt(minCount) || 0).required() // should be integer and min as minCount parameter
     })
 }
 
