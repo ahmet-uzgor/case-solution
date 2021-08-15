@@ -4,15 +4,18 @@ const Joi = JoiImport.extend(DateExtension);
 const httpStatusCodes = require('./http-status-codes');
 
 // All request body validation rules are written below with Joi.
-const validationRules = Joi.object({
-    startDate: Joi.date().format('YYYY-MM-DD').utc().required(),
-    endDate: Joi.date().format('YYYY-MM-DD').utc().required(),
-    minCount: Joi.number().integer().min(0).required(),
-    maxCount: Joi.number().integer().min(0).required()
-})
+const validationRules = (minCount) => {
+    return Joi.object({
+        startDate: Joi.date().format('YYYY-MM-DD').utc().required(),
+        endDate: Joi.date().format('YYYY-MM-DD').utc().required(), // should be a date with YYYY-MM-DD format in utc time
+        minCount: Joi.number().integer().min(0).required(), // should be positive integer
+        maxCount: Joi.number().integer().min(minCount).required() // should be integer and min as minCount parameter
+    })
+}
 
 module.exports = (req, res, next) => {
-    const { error, value } = validationRules.validate(req.body, { convert: true }); // it converts date to utc to use in db queries
+    // validates all request body
+    const { error, value } = validationRules(req.body.minCount).validate(req.body, { convert: true }); // it converts date to utc to use in db queries
     
     if (error) { // Negative codes are indicates error, messages comes from Joi automatically
         const err = error.details[0];
@@ -27,11 +30,11 @@ module.exports = (req, res, next) => {
                 code = -3
                 break;
         }
-        console.log(err.message + " code: " + err.type);
+        console.log(`${err.message} ${code}: ${err.type}`);
   
         // Return bad_request error and error message
         res.status(httpStatusCodes.BAD_REQUEST).send({code, msg: err.message, records: []});
-    } else {
+    } else { // if req. body is validated it sends to next function
         req.body = value
         next();
     }

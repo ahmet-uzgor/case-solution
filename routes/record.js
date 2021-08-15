@@ -11,6 +11,7 @@ router.get('/', async (req, res) => {
 
 // It filters records data regarding given parameters and returns data with message
 router.post('/filterRecords', validator ,async (req, res) => {
+  // all request body parameters are validated with Joi
   const { startDate, endDate, minCount, maxCount } = req.body;
   const { records, error } = await queries.getRecordWithFilter(startDate, endDate, minCount, maxCount);
   
@@ -22,7 +23,7 @@ router.post('/filterRecords', validator ,async (req, res) => {
     })
   }
 
-  res.status(httpStatusCodes.OK).send({
+  res.status(httpStatusCodes.OK).send({ // it sends records with 200 status code
     code: 0,
     msg: "Success",
     records
