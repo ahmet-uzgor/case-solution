@@ -18,8 +18,8 @@ const getRecordWithFilter = async (startDate, endDate, minCount, maxCount) => {
           $match: {
             totalCount: { $gte: minCount, $lte: maxCount }, // it filters sum of counts between given min and maxCounts
             createdAt: { // it filters created_At date between start and endDate in suitable date type 
-              $gte: new Date(startDate), 
-              $lte: new Date(endDate)
+              $gte: startDate, 
+              $lte: endDate
             }
           }
         },
