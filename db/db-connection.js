@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 module.exports = () => {
-    mongoose.connect(process.env.DB_STRING, { useNewUrlParser: true, useUnifiedTopology: true });
+    mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
     mongoose.connection.on('open', () => {
         console.log('DB connected');
@@ -12,5 +12,4 @@ module.exports = () => {
     });
 
     mongoose.Promise = global.Promise;
-
 };
