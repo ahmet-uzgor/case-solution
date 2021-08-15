@@ -4,9 +4,16 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+//Environment variable config.
+const dotenv = require('dotenv');
+dotenv.config();
+
 var indexRouter = require('./routes/index');
 
 var app = express();
+
+// mongodb connection initialization
+const mongodb = require('./db/db-connection')();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
