@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const queries = require('../db/db-queries');
-const  validator = require('../handlers/validation');
+const  validator = require('../handlers/filterRecords-validation');
 const httpStatusCodes = require('../handlers/http-status-codes');
 
 /* GET api health check. */

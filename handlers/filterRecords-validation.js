@@ -1,7 +1,7 @@
 const DateExtension = require('@joi/date');
 const JoiImport = require('joi');
 const Joi = JoiImport.extend(DateExtension);
-const httpStatusCodes = require('../handlers/http-status-codes');
+const httpStatusCodes = require('./http-status-codes');
 
 // All request body validation rules are written below with Joi.
 const validationRules = Joi.object({
