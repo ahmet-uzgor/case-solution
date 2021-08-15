@@ -1,10 +1,17 @@
 {
   "name": "case-study-getir",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
     "start:dev": "nodemon ./bin/www"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ahmet-uzgor/case-solution.git"
+  },
+  "author": {
+    "name": "Ahmet Üzgör"
   },
   "dependencies": {
     "@joi/date": "^2.1.0",
