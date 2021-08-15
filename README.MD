@@ -5,7 +5,7 @@ Used technologies are listed below:
 
 Node.js => express, mongodb (mongoose) for database, jest + supertest for testing
 
-To be able to start app please follow below codes; and please create    .env file and add your MONGODB_URI 
+To be able to start app please follow below codes; and please create ".env" file and add your MONGODB_URI 
 ```
 git clone https://github.com/ahmet-uzgor/case-solution.git
 cd case-colution
@@ -27,4 +27,15 @@ To create sustainable and understandable structure, I tried to collapse all rela
 - Db related files such as connection and queries are located under db/ file
 - All process handler such as error-handler, validation etc... is located under handler folder.
 - Mongodb models/schemas are located under models/ folder
-- All other configuration related files are located under main project folder 
+- All other configuration related files are located under main project folder
+
+# Error Handling
+To handle all errors in a suitable way, I have implemented both validation rules and custom error middlewares.
+Also suitable status codes are send with http response also response includes, error code and message.
+Codes are listed below;
+- Code => 0 , Success
+- Code => -1, Bad_Request , Typo error in Request Body
+- Code => -2, Given parameter is empty or not provided
+- Code => -3, Given parameters are in wrong format
+- Code => -4, DB error, connection or query error
+- Code => -5, Internal Server Error

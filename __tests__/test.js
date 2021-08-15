@@ -3,6 +3,7 @@ const application = require('../app');
 const httpStatusCodes = require('../handlers/http-status-codes');
 const request = supertest(application);
 
+// NOT_FOUND test, if wrong or not found url;
 describe('routes url path notFound', () => {
     it('tests for url path not found', function(done) {
       request
@@ -18,38 +19,68 @@ describe('routes url path notFound', () => {
     });
 });
 
+// ROUTE TEST, it tests route endpoints
 describe('/filterRecords test cases', () => {
-    let requestData;
+  let requestData;
 
-    beforeEach(() => {
-        requestData = { // sample request body
-            startDate: '2016-01-26',
-            endDate: '2018-02-02',
-            minCount: '2700',
-            maxCount: '3000',
-        };
-        jest.useFakeTimers(); // to be able to fix async import time error , it creates fake timer beforeEach test
-    });
-    
-    it('tests without startDate, return startDate is required', function(done) {
-        delete requestData.startDate;
-        request
-          .post('/filterRecords')
-          .send(requestData)
-          .set('Accept', 'application/json')
-          .expect(httpStatusCodes.BAD_REQUEST)
-          .end((err, res) => {
-            console.log(res.body.msg)
-            if(err) return done(err);
-            expect(res.body.code).toBe(-2)
-            expect(res.body.msg).toBe('"startDate" is required');
-            return done();
-        });
-    });
+  beforeEach(() => {
+    requestData = { // sample request body
+        startDate: '2016-01-26',
+        endDate: '2018-02-02',
+        minCount: '2700',
+        maxCount: '3000',
+    };
+    jest.useFakeTimers(); // to be able to fix async import time error , it creates fake timer beforeEach test
+  });
+
+  afterEach(() => {
+      jest.runOnlyPendingTimers(); //it resets timer as normal to convert fakeTimer to normal 
+      jest.useRealTimers();
+  });
+  
+  it('tests without startDate, return startDate is required', function(done) {
+    delete requestData.startDate;
+    request
+      .post('/filterRecords')
+      .send(requestData)
+      .set('Accept', 'application/json')
+      .expect(httpStatusCodes.BAD_REQUEST)
+      .end((err, res) => {
+        if(err) return done(err);
+        expect(res.body.code).toBe(-2)
+        expect(res.body.msg).toBe('"startDate" is required');
+        return done();
+      });
+  });
+
+  it('tests without endDate, return endDate is required', function(done) {
+    delete requestData.endDate;
+    request
+      .post('/filterRecords')
+      .send(requestData)
+      .set('Accept', 'application/json')
+      .expect(httpStatusCodes.BAD_REQUEST)
+      .end((err, res) => {
+        if(err) return done(err);
+        expect(res.body.code).toBe(-2)
+        expect(res.body.msg).toBe('"endDate" is required');
+        return done();
+      });
+  });
+
+  it('tests without maxCount, return maxCount is required', function(done) {
+    delete requestData.maxCount;
+    request
+      .post('/filterRecords')
+      .send(requestData)
+      .set('Accept', 'application/json')
+      .expect(httpStatusCodes.BAD_REQUEST)
+      .end((err, res) => {
+        if(err) return done(err);
+        expect(res.body.code).toBe(-2)
+        expect(res.body.msg).toBe('"maxCount" is required');
+        return done();
+      });
+  });
 });
-
-// afterEach(() => {
-//     jest.runOnlyPendingTimers(); //it resets timer as normal to convert fakeTimer to normal 
-//     jest.useRealTimers();
-// });
 
