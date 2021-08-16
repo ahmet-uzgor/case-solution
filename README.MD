@@ -14,9 +14,11 @@ npm start
 ```
 It will start on localhost:3000 or 127.0.0.1:3000.
 
-ALSO you can test this app from this [site]()
+ALSO you can test this app from this [site](https://gentle-lake-42646.herokuapp.com/)
 
-Also to run test under __test__ folder. Run below code. 
+Also to run test under __test__ folder to see coverage report and tests result. Run below code. 
+
+It has 14 test for endpoints, functions etc...
 ```
 npm run test
 ```
@@ -31,7 +33,7 @@ npm run test
 
 ```jsx
 POST /filterRecords HTTP/1.1
-Host: 
+Host: https://gentle-lake-42646.herokuapp.com
 Content-Type: application/json
 {
   "startDate": "2016-01-26",
