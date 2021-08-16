@@ -14,11 +14,51 @@ npm start
 ```
 It will start on localhost:3000 or 127.0.0.1:3000.
 
-ALSO you can test this app from this [site](https://obscure-fortress-36622.herokuapp.com/)
+ALSO you can test this app from this [site]()
 
 Also to run test under __test__ folder. Run below code. 
 ```
 npm run test
+```
+### Request Payload Structure
+
+| Parameters | Description |
+| ------ | ----------- |
+| startDate   | Date (YYYY-MM-DD) |
+| endDate | Date (YYYY-MM-DD) |
+| minCount    | number |
+| maxCount    | number |
+
+```jsx
+POST /filterRecords HTTP/1.1
+Host: 
+Content-Type: application/json
+{
+  "startDate": "2016-01-26",
+  "endDate": "2018-02-02",
+  "minCount": 2700,
+  "maxCount": 3000
+}
+```
+
+### Structure of Response Payload
+```jsx
+{
+  "code":0,
+  "msg":"Success",
+  "records":[
+    {
+    "key":"TAKwGc6Jr4i8Z487",
+    "createdAt":"2017-01-28T01:22:14.398Z",
+    "totalCount":2800
+    },
+    {
+    "key":"NAeQ8eX7e5TEg7oH",
+    "createdAt":"2017-01-27T08:19:14.135Z",
+    "totalCount":2900
+    }
+  ]
+}
 ```
 
 # Folder Structure
@@ -32,7 +72,7 @@ To create sustainable and understandable structure, I tried to collapse all rela
 # Error Handling
 To handle all errors in a suitable way, I have implemented both validation rules and custom error middlewares.
 Also suitable status codes are send with http response also response includes, error code and message.
-Codes are listed below;
+Codes and Response Messages are listed below;
 - Code => 0 , Success
 - Code => -1, Bad_Request , Typo error in Request Body
 - Code => -2, Given parameter is empty or not provided
